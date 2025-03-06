@@ -14,11 +14,12 @@
             padding: 0;
         }
         .container {
-            margin-top: 50px;
+            margin-top: 10px;
+            position: relative;
         }
         img {
             width: 250px;
-            height: 290px;
+            height: 295px;
             border-radius: 50%;
             border: 5px solid white;
             box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
@@ -43,26 +44,95 @@
             text-decoration: none;
             box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
             transition: 0.3s;
+            cursor: pointer;
         }
         .button:hover {
             background: #ff5a5f;
             color: white;
         }
+        audio {
+            background-color: rgba(255, 192, 203, 0.5);
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+        }
+        audio::-webkit-media-controls-panel {
+            background-color: #ff9a9e !important;
+        }
+
+        /* Flower Animation */
+        .flower {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            font-size: 25px;
+            animation: flowerAnimation 2s forwards;
+        }
+
+        /* Keyframe for flower animation */
+        @keyframes flowerAnimation {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.5) translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1) translateY(var(--random-height));
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(1.5) translateY(var(--random-height));
+            }
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>For Kay Kay &#x1F338;</h1>
+        <h1>For Kay Kay &#x1F33C;</h1>
         <!-- Use the Google Drive link for the image -->
-        <img src="KayKay.jpg" alt="My Love">
-        <p class="message">My dear sensitive girl, I would never intentionally do anything to upset you. If I made a mistake, I'm truly sorry. Please don’t dwell on it too much. No matter what happens, I just want you to be happy, smiling, and full of joy always.&#x1F490;</p>
-        <!-- Update the audio source to the Google Drive link for the audio -->
+        <img src="KayKay.jpg" alt="My Love"> <br>
         <audio controls autoplay>
             <source src="Blue.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
-        <br>
-        <a href="" class="button">Yes, I'll Forgive U 💌</a>
+        <p class="message">My dear sensitive girl, I would never intentionally do anything to upset you. If I made a mistake, I'm truly sorry. Please don’t dwell on it too much. No matter what happens, I just want you to be happy, smiling, and full of joy always.&#x1F490;</p>
+        
+        <!-- Button to trigger the animation -->
+        <a href="javascript:void(0);" class="button" onclick="showFlowers()">I Forgive U 💌</a>
     </div>
+
+    <script>
+        function showFlowers() {
+            // Number of flowers to show each time the button is clicked
+            var numFlowers = 15;
+
+            // Loop to create multiple flower elements
+            for (var i = 0; i < numFlowers; i++) {
+                // Create flower element
+                var flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.innerHTML = '&#x1F338;'; // Flower Unicode
+
+                // Set random position (optional for more dynamic effect)
+                flower.style.left = Math.random() * 100 + "%";
+
+                // Set a random height for each flower animation using CSS variable
+                var randomHeight = Math.random() * 40 - 200 + "px"; // Random height between 150px and 350px
+                flower.style.setProperty('--random-height', randomHeight);
+
+                // Add flower to the container
+                document.querySelector('.container').appendChild(flower);
+
+                // Remove flower after animation (2s duration)
+                setTimeout(function() {
+                    flower.remove();
+                }, 2500); // 2500ms is the duration of the animation
+            }
+        }
+    </script>
 </body>
 </html>
